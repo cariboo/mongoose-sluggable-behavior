@@ -40,7 +40,7 @@ Example
         'name',
         'location'
       ]
-    })
+    });
 
     var db = mongoose.createConnection('localhost', 'demo');
 
