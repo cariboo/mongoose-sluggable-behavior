@@ -1,0 +1,41 @@
+{ 
+  "name": "mongoose-sluggable-behavior", 
+
+  "description": "Creates a sluggable mongoose Model from an existing schema"
+
+  "maintainers":
+  [ 
+    { 
+      "name": "Wes John-Alder", 
+      "web": "https://github.com/wjohnald"
+    }
+  ], 
+
+  "main": "index",
+
+  "version": "0.0.1", 
+
+  "dependencies": {
+    "mongoose": "2.5.10",
+    "slugs": "~0.1.2"
+  },
+
+  "repository" :
+  { 
+    "type" : "git", 
+    "url" : "https://github.com/wjohnald/mongoose-sluggable-behavior.git" 
+  }, 
+
+  "bugs" : { 
+    "web" : "http://github.com/wjohnald/mongoose-sluggable-behavior/issues" 
+  }, 
+
+  "licenses" :
+    [ 
+      { 
+        "type" : "MIT", 
+        "url" : "http://github.com/powmedia/mongoose-sluggable-behavior/raw/master/LICENSE"
+      }
+    ]
+}
+
