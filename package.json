@@ -1,7 +1,7 @@
 { 
   "name": "mongoose-sluggable-behavior", 
 
-  "description": "Creates a sluggable mongoose Model from an existing schema"
+  "description": "Creates a sluggable mongoose Model from an existing schema",
 
   "maintainers":
   [ 
