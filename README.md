@@ -1,15 +1,18 @@
-About
-=====
-  This module aims to provide lightweight and simple-to-use sluggable behavior to
-  your Mongoose schemas in Node. Simply create your schema, and get a model with:
+mongoose-sluggable-behavior
+===========================
+  This module aims to provide a concurrency safe, lightweight, and simple-to-use sluggable behavior to
+  your Mongoose schemas in Node. Simply:
+
+    1) create your schema (without the slug field), and
+    2) get your model model with:
 
     var db = mongoose.createConnection('localhost', 'models');
     db.once('open', function() {
-      var Model = sluggableBehavior(schema).model(db);
+      var Model = sluggableBehavior('ModelName', schema, { fields: ['sluggable1', 'sluggable2', etc.  ]}).model(db);
     });
 
   This module provides a drop-in replacement for save that will catch a unique
-  field error if the field is the document's slug. If the slug is a duplicate,
+  field error on save if the field is the document's slug. If the slug is a duplicate,
   the behavior will append a counting variable to the end. Subsequent duplicates
   will be saved as:
 
