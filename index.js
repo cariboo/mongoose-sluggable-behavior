@@ -43,7 +43,6 @@ module.exports = function(name, schema, options) {
       slug_counter = slug_counter || 1;
 
       mongoose.Model.prototype.save.call(obj, function(err) {
-        console.log(obj.slug);
         if (err && (err.code === 11000) && (err.err.indexOf(obj.slug) !== -1)) {
           obj.slug = obj.makeSlug(slug_counter);
           Model.prototype.save.call(obj, callback, slug_counter + 1);
