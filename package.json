@@ -34,7 +34,7 @@
     [ 
       { 
         "type" : "MIT", 
-        "url" : "http://github.com/powmedia/mongoose-sluggable-behavior/raw/master/LICENSE"
+        "url" : "https://github.com/wjohnald/mongoose-sluggable-behavior/blob/master/LICENSE" 
       }
     ]
 }
