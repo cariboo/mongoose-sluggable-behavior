@@ -35,23 +35,25 @@ module.exports = function(name, schema, options) {
     next();
   });
 
-  return function(db) {
-    var Model = db.model(name, schema);
+  return {
+    model: function(db) {
+      var Model = db.model(name, schema);
 
-    Model.prototype.save = function(callback, slug_counter) {
-      var obj = this;
-      slug_counter = slug_counter || 1;
+      Model.prototype.save = function(callback, slug_counter) {
+        var obj = this;
+        slug_counter = slug_counter || 1;
 
-      mongoose.Model.prototype.save.call(obj, function(err) {
-        if (err && (err.code === 11000) && (err.err.indexOf(obj.slug) !== -1)) {
-          obj.slug = obj.makeSlug(slug_counter);
-          Model.prototype.save.call(obj, callback, slug_counter + 1);
-        } else {
-          callback(err);
-        }
-      });
-    };
+        mongoose.Model.prototype.save.call(obj, function(err) {
+          if (err && (err.code === 11000) && (err.err.indexOf(obj.slug) !== -1)) {
+            obj.slug = obj.makeSlug(slug_counter);
+            Model.prototype.save.call(obj, callback, slug_counter + 1);
+          } else {
+            callback(err);
+          }
+        });
+      };
 
-    return Model;
+      return Model;
+    }
   };
 };

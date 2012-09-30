@@ -5,7 +5,7 @@ About
 
     var db = mongoose.createConnection('localhost', 'models');
     db.once('open', function() {
-      var Model = sluggableBehavior(schema)(db);
+      var Model = sluggableBehavior(schema).model(db);
     });
 
   This module provides a drop-in replacement for save that will catch a unique
@@ -32,16 +32,17 @@ Example
       name: String,
       location: String
     });
+    var sluggableSchema = sluggableBehavior('ClimbingRoute', routeSchema, {
+      fields: [
+        'name',
+        'location'
+      ]
+    })
 
     var db = mongoose.createConnection('localhost', 'demo');
 
     db.once('open', function() {
-      var ClimbingRoute = sluggableBehavior('ClimbingRoute', routeSchema, {
-        fields: [
-          'name',
-          'location'
-        ]
-      })(db);
+      var ClimbingRoute = sluggableSchema.model(db);
 
       var routeOne = new ClimbingRoute({
         name: "High Exposure",
