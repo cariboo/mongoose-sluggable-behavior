@@ -29,11 +29,12 @@ Install
 Example
 =======
     var mongoose = require('mongoose'),
-        sluggableBehavior = require('mongoose-sluggable-behavior');
+    sluggableBehavior = require('mongoose-sluggable-behavior');
 
     var routeSchema = new mongoose.Schema({
       name: String,
-      location: String
+      location: String,
+      partner: String
     });
     var sluggableSchema = sluggableBehavior('ClimbingRoute', routeSchema, {
       fields: [
@@ -42,30 +43,52 @@ Example
       ]
     });
 
-    var db = mongoose.createConnection('localhost', 'demo');
+    var db = mongoose.createConnection('localhost', 'sluggabledemo');
 
     db.once('open', function() {
       var ClimbingRoute = sluggableSchema.model(db);
 
       var routeOne = new ClimbingRoute({
         name: "High Exposure",
-        location: "Gunks"
+        location: "Gunks",
+        partner: "Bob"
       });
       var routeTwo = new ClimbingRoute({
         location: "Gunks",
-        name: "High Exposure"
+        name: "High Exposure",
+        partner: "Dylan"
       });
 
       routeOne.save(function(err) {
-        console.log("Route One: " + routeOne.slug);     // 'Route One: high-exposure-gunks'
+        console.log("Route One: " + routeOne.slug + " with " + routeOne.partner);
 
         // Save route 2 after we know route 1 has been saved
         routeTwo.save(function(err) {
-          console.log("Route Two: " + routeTwo.slug);   // 'Route Two: high-exposure-gunks-1'
+          console.log("Route Two: " + routeTwo.slug + " with " + routeTwo.partner);
         });
       });
 
+      var routeThree = new ClimbingRoute({
+        name: "High Exposure",
+        location: "Gunks",
+        partner: "Patrick"
+      });
+      var routeFour = new ClimbingRoute({
+        location: "Gunks",
+        name: "High Exposure",
+        partner: "Stewart"
+      });
+
+      routeThree.save(function(err) {
+        console.log("Route Three: " + routeThree.slug + " with " + routeThree.partner);
+      });
+      routeFour.save(function(err) {
+        console.log("Route Four: " + routeFour.slug + " with " + routeFour.partner);
+      });
+
+
     });
+
 
 
 Dependencies

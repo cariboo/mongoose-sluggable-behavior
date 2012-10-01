@@ -6,7 +6,9 @@ module.exports = function(name, schema, options) {
   schema.add({
     slug: {
       type: String,
-      unique: true
+      index: {
+        unique: true
+      }
     }
   });
 
