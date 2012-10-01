@@ -43,51 +43,55 @@ Example
       ]
     });
 
-    var db = mongoose.createConnection('localhost', 'sluggabledemo');
-
+    var db = mongoose.createConnection('localhost', 'sluggabledemoseven');
     db.once('open', function() {
       var ClimbingRoute = sluggableSchema.model(db);
 
-      var routeOne = new ClimbingRoute({
-        name: "High Exposure",
-        location: "Gunks",
-        partner: "Bob"
-      });
-      var routeTwo = new ClimbingRoute({
-        location: "Gunks",
-        name: "High Exposure",
-        partner: "Dylan"
-      });
+      ClimbingRoute.once('index', function() {
 
-      routeOne.save(function(err) {
-        console.log("Route One: " + routeOne.slug + " with " + routeOne.partner);
+        var routeOne = new ClimbingRoute({
+          name: "High Exposure",
+          location: "Gunks",
+          partner: "Bob"
+        });
+        var routeTwo = new ClimbingRoute({
+          location: "Gunks",
+          name: "High Exposure",
+          partner: "Dylan"
+        });
 
-        // Save route 2 after we know route 1 has been saved
-        routeTwo.save(function(err) {
-          console.log("Route Two: " + routeTwo.slug + " with " + routeTwo.partner);
+        routeOne.save(function(err) {
+          console.log("Route One: " + routeOne.slug + " with " + routeOne.partner);
+
+          // Save route 2 after we know route 1 has been saved
+          routeTwo.save(function(err) {
+            console.log("Route Two: " + routeTwo.slug + " with " + routeTwo.partner);
+          });
+        });
+
+        var routeThree = new ClimbingRoute({
+          name: "High Exposure",
+          location: "Gunks",
+          partner: "Patrick"
+        });
+        var routeFour = new ClimbingRoute({
+          location: "Gunks",
+          name: "High Exposure",
+          partner: "Stewart"
+        });
+
+        routeThree.save(function(err) {
+          console.log("Route Three: " + routeThree.slug + " with " + routeThree.partner);
+        });
+        routeFour.save(function(err) {
+          console.log("Route Four: " + routeFour.slug + " with " + routeFour.partner);
         });
       });
 
-      var routeThree = new ClimbingRoute({
-        name: "High Exposure",
-        location: "Gunks",
-        partner: "Patrick"
-      });
-      var routeFour = new ClimbingRoute({
-        location: "Gunks",
-        name: "High Exposure",
-        partner: "Stewart"
-      });
-
-      routeThree.save(function(err) {
-        console.log("Route Three: " + routeThree.slug + " with " + routeThree.partner);
-      });
-      routeFour.save(function(err) {
-        console.log("Route Four: " + routeFour.slug + " with " + routeFour.partner);
-      });
-
+      // The only gaurantee is that once will be saved before two.
 
     });
+
 
 
 
